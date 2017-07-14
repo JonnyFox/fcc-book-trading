@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    color: #fff;
+    background-color: #333;
+}
+
+input {
+    background-color: #333;
+    border: 1px solid #666;
+    padding: .25rem;
+    color: #fff;
+}
+
+button.fab-button.mat-fab.mat-accent {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.hide-me{
+    transform: scale(0);
+}
+
+.badge-container{
+    display: flex;
+    align-items: center;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: .5rem;
+    background-color: #ff4081;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    animation-iteration-count: 2;
+    transition-duration: .25s;
+}
+
+.mat-dialog-container{
+    position: relative;
+    color: #fff;
+    background-color: #333;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.books-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book-container{
+    width: 8rem;
+    justify-content: center;
+    margin: .75rem;
+    display: flex;
+    flex-direction: column;
+    opacity: .6;
+    transition: .25s ease-in-out;
+    justify-content: flex-start;
+
+    & .book-title {
+        padding-top: .5rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    & .book-image{
+        height: 13rem;
+    }
+
+    &:hover{
+       opacity: 1;
+    }
+
+    &.library{
+        opacity: .8;
+    }
+}

@@ -1,0 +1,30 @@
+.full-height {
+    height: 100%;
+}
+
+.app-toolbar-filler {
+    flex: 1 1 auto;
+}
+
+.fixed {
+    position: fixed;
+    z-index: 1;
+}
+
+.app-content {
+    padding: 20px;
+    padding-top: 90px;
+    background-color: #333;
+}
+
+.identity-image {
+    border-radius: 50%;
+    height: 45px;
+    margin-right: 10px;
+}
+
+.identity-container{
+    display: flex;
+    align-items: center;
+}
+

@@ -1,0 +1,9 @@
+<div>
+    <div class="books-container library">
+        <div class="book-container" *ngFor="let book of books | async | orderbytitle">
+            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image"/>
+            <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
+        </div>
+    </div>
+</div>
+<button md-fab (click)="addBook()" class="fab-button"><md-icon>add</md-icon></button>

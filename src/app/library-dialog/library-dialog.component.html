@@ -1,0 +1,14 @@
+<div class="row search-input-container">
+    <label for="search-input">Search books</label>
+    <input id="search-input" type="text" [formControl]="searchControl" class="search-input">
+    <div id="results"></div>
+</div>
+<div class="books-container">
+    <div *ngFor="let book of filteredBooks | async | orderbytitle" class="book-container">
+        <div (click)="selectBook(book)" class="book-container">
+            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image"/>
+            <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
+        </div>
+    </div>
+</div>
+<button md-button (click)="selectBook()" class="close-button">Close</button>
