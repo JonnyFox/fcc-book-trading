@@ -6,7 +6,7 @@
                 <div class="badge" [ngClass]="{'hide-me' : !($booksCount | async)}">{{$booksCount | async}}</div>
             </div>
         </button>
-        <button md-button>
+        <button md-button routerLink="/trades">
             <div class="badge-container">Trades
                 <div *ngIf="$incomingTradesCount | async" class="badge animated" [ngClass]="{'hide-me' : !($incomingTradesCount | async), 'bounce' : ($incomingTradesCount | async)}">{{$incomingTradesCount | async}}</div>
                 <div class="badge" [ngClass]="{'hide-me' : !($outgoingTradesCount | async)}">{{$outgoingTradesCount | async}}</div>

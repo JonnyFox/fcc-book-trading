@@ -14,7 +14,6 @@ import { FirebaseListObservable } from 'angularfire2/database/firebase_list_obse
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-    selector: 'app-library',
     templateUrl: './library.component.html',
     styleUrls: ['./library.component.scss'],
     animations: [

@@ -1,0 +1,50 @@
+<div *ngIf="($outgoingTrades | async).length">
+    <span>Outgoing</span>
+    <div class="trades-container">
+        <div class="trade-container" *ngFor="let trade of $outgoingTrades | async">
+            <div class="books-container">
+                <div class="book-container" [@fadeIn] *ngFor="let book of trade.requestedBooks | orderbytitle">
+                    <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image" />
+                    <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
+                </div>
+            </div>
+            <div class="trade-separator animated">
+                <button md-fab class="fab-button" (click)="cancelTrade(trade)">
+                    <md-icon>clear</md-icon>
+                </button>
+            </div>
+            <div class="books-container">
+                <div class="book-container" [@fadeIn] *ngFor="let book of trade.offeredBooks | orderbytitle">
+                    <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image" />
+                    <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="($incomingTrades | async).length">
+    <span>Incoming</span>
+    <div class="trades-container-wrapper">
+        <div class="trades-container">
+            <div class="trade-container" *ngFor="let trade of $incomingTrades | async">
+                <div class="books-container library">
+                    <div class="book-container" [@fadeIn] *ngFor="let book of trade.offeredBooks | orderbytitle">
+                        <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image" />
+                        <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
+                    </div>
+                </div>
+                <div class="trade-separator animated">
+                    <button md-fab class="fab-button" (click)="confirmTrade(trade)">
+                        <md-icon>check</md-icon>
+                    </button>
+                </div>
+                <div class="books-container library">
+                    <div class="book-container" [@fadeIn] *ngFor="let book of trade.requestedBooks | orderbytitle">
+                        <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image" />
+                        <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

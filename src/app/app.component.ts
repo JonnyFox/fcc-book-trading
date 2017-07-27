@@ -50,14 +50,14 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
                     this.$incomingTradesCount = db.list(`/${FirebaseLists[FirebaseLists.trades]}`, {
                         query: {
-                            orderByChild: 'requestToId',
+                            orderByChild: 'requestTo/id',
                             equalTo: this.identity.id
                         }
                     }).map((trades: Trade[]) => !!trades ? trades.length : 0);
 
                     this.$outgoingTradesCount = db.list(`/${FirebaseLists[FirebaseLists.trades]}`, {
                         query: {
-                            orderByChild: 'offerFromId',
+                            orderByChild: 'offerFrom/id',
                             equalTo: this.identity.id
                         }
                     }).map((trades: Trade[]) => !!trades ? trades.length : 0);

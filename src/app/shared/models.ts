@@ -17,15 +17,19 @@ export class Book {
     ownerId: string;
 }
 
-export class Trade {
-    requestToId: string;
+export interface Trade extends FirebaseItem {
+    requestTo: Identity;
     requestedBooks: Book[];
-    offerFromId: string;
+    offerFrom: Identity;
     offeredBooks: Book[];
 }
 
 export interface SelectableBook extends Book {
     isSelected: boolean;
+}
+
+export interface FirebaseItem {
+    $key: string;
 }
 
 export enum FirebaseLists {

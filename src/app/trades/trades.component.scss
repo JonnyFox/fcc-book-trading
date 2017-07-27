@@ -1,0 +1,15 @@
+.trade-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // transform: scale(.75);
+
+    // .books-container {
+    //     transform: scale(.75);
+    // }
+}
+
+.trades-container{
+    transform: scale(.75);
+    transform-origin: left;
+}

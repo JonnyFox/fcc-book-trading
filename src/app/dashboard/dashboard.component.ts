@@ -12,18 +12,17 @@ import { IdentityService } from 'app/shared/identity.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
-    selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     animations: [
         trigger('fadeIn', [
             transition(':enter', [
                 style({ opacity: '0', transform: 'scale(0)' }),
-                animate('.25s ease-out', style({ opacity: '.6', transform: 'scale(1)'  })),
+                animate('.25s ease-out', style({ opacity: '.6', transform: 'scale(1)' })),
             ]),
             transition(':leave', [
                 style({ opacity: '.6' }),
-                animate('.25s ease-out', style({ opacity: '0', transform: 'scale(0)'})),
+                animate('.25s ease-out', style({ opacity: '0', transform: 'scale(0)' })),
             ]),
         ]),
         trigger('selected', [
@@ -38,10 +37,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
     private _$selectedBooks = new BehaviorSubject<Book[]>([]);
-    private bookOwners: FirebaseListObservable<Identity[]>;
     private requestedBooks = new Array<Book>();
     private isAlive = true;
-    private identityId: string;
+    private identity: Identity;
+    private filterOwner: Identity;
+
 
     public $filteredBooks: Observable<Book[]>;
     public searchControl = new FormControl();
@@ -59,12 +59,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ) {
         this.$selectedBooks = this._$selectedBooks.asObservable();
 
-        this.bookOwners = <FirebaseListObservable<Identity[]>>db.list(`/${FirebaseLists[FirebaseLists.bookOwners]}`);
-
         this.identityService.$identity
             .first()
             .subscribe(identity => {
-                this.identityId = identity.id;
+                this.identity = identity;
             });
 
         this.$isSelectionMode = this.$selectedBooks
@@ -81,6 +79,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 }
             }))
             .map((identities: Identity[]) => !identities || !identities.length ? null : identities[0]);
+
+        this.$filterOwner
+            .filter(() => !this.isTradingMode)
+            .subscribe(f => this.filterOwner = f);
 
         this.$bookOwner = this.$filterOwner
             .filter(owner => !!owner);
@@ -99,7 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     private initialize(): void {
         this.$filteredBooks = <FirebaseListObservable<SelectableBook[]>>this.db.list(`/${FirebaseLists[FirebaseLists.books]}`)
-            .map(books => books.filter((book: Book) => book.ownerId !== this.identityId));
+            .map(books => books.filter((book: Book) => book.ownerId !== this.identity.id));
         this._$selectedBooks.next([]);
         this.requestedBooks = [];
         this.isTradingMode = false;
@@ -122,20 +124,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.$filteredBooks = <FirebaseListObservable<SelectableBook[]>>this.db.list(`/${FirebaseLists[FirebaseLists.books]}`, {
                 query: {
                     orderByChild: 'ownerId',
-                    equalTo: this.identityId
+                    equalTo: this.identity.id
                 }
             });
         } else {
             if (this._$selectedBooks.getValue().length) {
                 const trades = <FirebaseListObservable<Trade[]>>this.db.list(`/${FirebaseLists[FirebaseLists.trades]}`);
                 trades.push(<Trade>{
-                    requestToId: this.requestedBooks[0].ownerId,
+                    requestTo: this.filterOwner,
                     requestedBooks: this.requestedBooks,
-                    offerFromId: this.identityId,
+                    offerFrom: this.identity,
                     offeredBooks: this._$selectedBooks.value
-                });
+                }).then(() => this.initialize());
             }
-            this.initialize();
         }
     }
 

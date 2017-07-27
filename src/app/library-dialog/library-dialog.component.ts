@@ -8,7 +8,6 @@ import { Book } from 'app/shared/models';
 import { MdDialogRef } from '@angular/material';
 
 @Component({
-    selector: 'app-library-dialog',
     templateUrl: './library-dialog.component.html',
     styleUrls: ['./library-dialog.component.scss'],
     animations: [

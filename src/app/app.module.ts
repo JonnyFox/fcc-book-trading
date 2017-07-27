@@ -20,6 +20,7 @@ import { OrderByTitlePipe } from './shared/order-by-title.pipe';
 import { TrimTitlePipe } from './shared/trim-title.pipe';
 import { HttpModule } from '@angular/http';
 import { FilterByOwnerPipe } from 'app/shared/filter-by-owner-id.pipe';
+import { TradesComponent } from './trades/trades.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { FilterByOwnerPipe } from 'app/shared/filter-by-owner-id.pipe';
         OrderByTitlePipe,
         FilterByTitlePipe,
         FilterByOwnerPipe,
-        TrimTitlePipe
+        TrimTitlePipe,
+        TradesComponent
     ],
     imports: [
         BrowserAnimationsModule,
