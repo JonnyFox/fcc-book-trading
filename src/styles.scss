@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html,
 body {
@@ -17,19 +18,28 @@ input {
     color: #fff;
 }
 
-button.fab-button.mat-fab.mat-accent {
+.fab-button-container {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
 }
 
-.hide-me{
-    transform: scale(0);
+.hide-me {
+    transform: scale(0) !important;
 }
 
-.badge-container{
+.fade-me {
+    opacity: 0 !important;
+}
+
+.badge-container {
     display: flex;
     align-items: center;
+}
+
+.animated {
+    transition-duration: .125s;
+    transition-timing-function: ease-in-out;
 }
 
 .badge {
@@ -46,7 +56,7 @@ button.fab-button.mat-fab.mat-accent {
     transition-duration: .25s;
 }
 
-.mat-dialog-container{
+.mat-dialog-container {
     position: relative;
     color: #fff;
     background-color: #333;
@@ -56,36 +66,49 @@ button.fab-button.mat-fab.mat-accent {
     width: 100%;
 }
 
-.books-container{
+.books-container {
     display: flex;
     flex-wrap: wrap;
 }
 
-.book-container{
+.book-container {
     width: 8rem;
     justify-content: center;
     margin: .75rem;
+    opacity: .6;
     display: flex;
     flex-direction: column;
-    opacity: .6;
-    transition: .25s ease-in-out;
+    // transition: .25s all ease-in-out;
     justify-content: flex-start;
-
     & .book-title {
         padding-top: .5rem;
         text-align: center;
         width: 100%;
     }
-
-    & .book-image{
+    & .book-image {
         height: 13rem;
     }
-
-    &:hover{
-       opacity: 1;
+    &:hover {
+        opacity: 1;
     }
-
-    &.library{
+    &.library {
         opacity: .8;
     }
+}
+
+.identity-image {
+    border-radius: 50%;
+    height: 45px;
+    margin-right: 10px;
+}
+
+.identity-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-input-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 2rem;
 }

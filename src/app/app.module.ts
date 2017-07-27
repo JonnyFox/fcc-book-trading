@@ -1,3 +1,4 @@
+import { FilterByTitlePipe } from './shared/filter-by-title.pipe';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -18,6 +19,7 @@ import { BookService } from './shared/book.service';
 import { OrderByTitlePipe } from './shared/order-by-title.pipe';
 import { TrimTitlePipe } from './shared/trim-title.pipe';
 import { HttpModule } from '@angular/http';
+import { FilterByOwnerPipe } from 'app/shared/filter-by-owner-id.pipe';
 
 @NgModule({
     declarations: [
@@ -26,9 +28,12 @@ import { HttpModule } from '@angular/http';
         LibraryComponent,
         LibraryDialogComponent,
         OrderByTitlePipe,
+        FilterByTitlePipe,
+        FilterByOwnerPipe,
         TrimTitlePipe
     ],
     imports: [
+        BrowserAnimationsModule,
         MdToolbarModule,
         MdButtonModule,
         MdChipsModule,

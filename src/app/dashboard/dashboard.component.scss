@@ -1,0 +1,14 @@
+.hide-me-height{
+    opacity: 0;
+    transition-duration: 0;
+}
+
+.header-container{
+    display: flex;
+    flex-flow: row;
+
+    & .identity-container{
+        margin-left: 2rem;
+    }
+
+}

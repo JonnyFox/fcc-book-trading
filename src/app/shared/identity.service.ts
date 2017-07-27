@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class IdentityService {
-    private _$identity: BehaviorSubject<Identity> = new BehaviorSubject(null);
+    private _$identity: BehaviorSubject<Identity | null> = new BehaviorSubject(null);
 
     public get $identity(): Observable<Identity> {
         return this._$identity as Observable<Identity>;

@@ -1,5 +1,5 @@
 import { IdentityService } from './shared/identity.service';
-import { Book, Identity, FirebaseLists } from './shared/models';
+import { Book, Identity, FirebaseLists, Trade } from './shared/models';
 import { States } from './shared/states';
 
 import { AfterViewInit, Component, NgZone, OnDestroy } from '@angular/core';
@@ -23,7 +23,9 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
     public googleLoginButtonId = 'google-login-button';
 
-    private booksCount: Observable<number>;
+    public $booksCount: Observable<number>;
+    public $incomingTradesCount: Observable<number>;
+    public $outgoingTradesCount: Observable<number>;
 
     constructor(
         private router: Router,
@@ -38,14 +40,27 @@ export class AppComponent implements OnDestroy, AfterViewInit {
                 if (identity) {
                     this.identity = identity;
 
-                    this.booksCount = db.list(`/${FirebaseLists[FirebaseLists.books]}`, {
+                    this.$booksCount = db.list(`/${FirebaseLists[FirebaseLists.books]}`, {
                         query: {
                             orderByChild: 'ownerId',
                             equalTo: this.identity.id
                         }
-                    }).map((books: Array<Book>) => {
-                        return !!books ? books.length : 0;
-                    });
+                    }).map((books: Array<Book>) => !!books ? books.length : 0);
+
+
+                    this.$incomingTradesCount = db.list(`/${FirebaseLists[FirebaseLists.trades]}`, {
+                        query: {
+                            orderByChild: 'requestToId',
+                            equalTo: this.identity.id
+                        }
+                    }).map((trades: Trade[]) => !!trades ? trades.length : 0);
+
+                    this.$outgoingTradesCount = db.list(`/${FirebaseLists[FirebaseLists.trades]}`, {
+                        query: {
+                            orderByChild: 'offerFromId',
+                            equalTo: this.identity.id
+                        }
+                    }).map((trades: Trade[]) => !!trades ? trades.length : 0);
                 }
             });
     }
@@ -55,13 +70,13 @@ export class AppComponent implements OnDestroy, AfterViewInit {
         gapi.signin2.render(
             this.googleLoginButtonId,
             {
-                'onSuccess': (loggedInUser) => this.setLoggedUser(loggedInUser),
+                'onSuccess': (loggedInUser: any) => this.setLoggedUser(loggedInUser),
                 'scope': 'profile',
                 'theme': 'dark'
             });
     }
 
-    private setLoggedUser(loggedInUser) {
+    private setLoggedUser(loggedInUser: any) {
         this.zone.run(() => {
             const profile = loggedInUser.getBasicProfile();
             this.identitySvc.setIdentity({

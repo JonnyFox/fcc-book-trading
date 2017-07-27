@@ -17,6 +17,20 @@ export class Book {
     ownerId: string;
 }
 
-export enum FirebaseLists {
-    books
+export class Trade {
+    requestToId: string;
+    requestedBooks: Book[];
+    offerFromId: string;
+    offeredBooks: Book[];
 }
+
+export interface SelectableBook extends Book {
+    isSelected: boolean;
+}
+
+export enum FirebaseLists {
+    books,
+    trades,
+    bookOwners
+}
+

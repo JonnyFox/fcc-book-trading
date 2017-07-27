@@ -1,15 +1,23 @@
-<button (click)="login()">Login</button>
-
-<button (click)="logout()">Logout</button>
-
-<div class="row search-input-container">
-    <input type="text" [formControl]="searchControl" class="search-input">
-    <div id="results"></div>
+<div class="header-container">
+    <div class="row search-input-container">
+        <label for="filterInput">Filter by title: </label>
+        <input id="filterInput" type="text" [formControl]="searchControl" class="search-input">
+        <div id="results"></div>
+    </div>
+    <div *ngIf="!isTradingMode" class="identity-container animated" [class.hide-me-height]="!($filterOwner | async)">
+        <img *ngIf="($bookOwner | async)?.imageUrl" [src]="($bookOwner | async)?.imageUrl" class="identity-image"> {{($bookOwner | async)?.name}}'s library
+    </div>
 </div>
 <div class="books-container">
-    <div *ngFor="let book of filteredBooks | async | orderbytitle" class="book-container">
-        <div> {{book.volumeInfo.title | trimtitle}}
-            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" />
-        </div>
+<div class="book-container" [@fadeIn] [@selected]="book.isSelected" *ngFor="let book of $filteredBooks | async | filterbyowner:($filterOwner | async) | filterbytitle:filterText | orderbytitle" (click)="selectBook(book)">
+        <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image" />
+        <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>
     </div>
+</div>
+<div class="fab-button-container animated" [class.hide-me]="!($isSelectionMode | async) && !isTradingMode">
+    <button md-fab (click)="tradeBooks()" class="fab-button">
+        <md-icon *ngIf="!isTradingMode">compare_arrows</md-icon>
+        <md-icon *ngIf="isTradingMode && ($isSelectionMode | async)">check</md-icon>
+        <md-icon *ngIf="isTradingMode && !($isSelectionMode | async)">clear</md-icon>
+    </button>
 </div>

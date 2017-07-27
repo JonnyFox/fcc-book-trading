@@ -4,7 +4,7 @@
     <div id="results"></div>
 </div>
 <div class="books-container">
-    <div *ngFor="let book of filteredBooks | async | orderbytitle" class="book-container">
+    <div *ngFor="let book of filteredBooks | async | orderbytitle" class="book-container" [@fadeIn]>
         <div (click)="selectBook(book)" class="book-container">
             <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail" class="book-image"/>
             <div class="book-title">{{book.volumeInfo.title | trimtitle}}</div>

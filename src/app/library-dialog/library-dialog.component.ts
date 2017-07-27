@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { BookService } from '../shared/book.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -9,7 +10,18 @@ import { MdDialogRef } from '@angular/material';
 @Component({
     selector: 'app-library-dialog',
     templateUrl: './library-dialog.component.html',
-    styleUrls: ['./library-dialog.component.scss']
+    styleUrls: ['./library-dialog.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition(':enter', [
+                style({ opacity: '0' }),
+                animate('.25s ease-out', style({ opacity: '.6' })),
+            ]),
+            transition(':leave', [
+                style({ opacity: '.6' }),
+                animate('.25s ease-out', style({ opacity: '0' })),
+            ]),
+        ])]
 })
 export class LibraryDialogComponent implements OnInit, OnDestroy {
 

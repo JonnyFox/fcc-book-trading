@@ -1,14 +1,27 @@
 <md-toolbar color="primary" class="fixed">
-    <button md-button routerLink="/dashboard">Voting App</button>
-    <button md-button routerLink="/library"><div class="badge-container">My library<div class="badge" [ngClass]="{'hide-me' : !(booksCount | async)}">{{booksCount | async}}</div></div></button>
-    <button md-button><div class="badge-container">Trading<div class="badge animated bounce">8</div></div></button>
+    <div *ngIf="identity">
+        <button md-button routerLink="/dashboard">Book trading app</button>
+        <button md-button routerLink="/library">
+            <div class="badge-container">My library
+                <div class="badge" [ngClass]="{'hide-me' : !($booksCount | async)}">{{$booksCount | async}}</div>
+            </div>
+        </button>
+        <button md-button>
+            <div class="badge-container">Trades
+                <div *ngIf="$incomingTradesCount | async" class="badge animated" [ngClass]="{'hide-me' : !($incomingTradesCount | async), 'bounce' : ($incomingTradesCount | async)}">{{$incomingTradesCount | async}}</div>
+                <div class="badge" [ngClass]="{'hide-me' : !($outgoingTradesCount | async)}">{{$outgoingTradesCount | async}}</div>
+            </div>
+        </button>
+    </div>
     <span class="app-toolbar-filler"></span>
     <div *ngIf="!identity" class="centered" id="{{googleLoginButtonId}}"></div>
     <div *ngIf="identity" class="pull-right identity-container">
         <img [src]="identity?.imageUrl" class="identity-image">
-        <div><button md-button routerLink="/settings">{{identity?.name}}</button></div>
+        <div>
+            <button md-button routerLink="/settings">{{identity?.name}}</button>
+        </div>
     </div>
 </md-toolbar>
-<div class="app-content">
+<div *ngIf="identity" class="app-content">
     <router-outlet></router-outlet>
 </div>
