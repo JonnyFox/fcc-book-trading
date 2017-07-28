@@ -1,4 +1,4 @@
-<div *ngIf="($outgoingTrades | async).length">
+<div *ngIf="($outgoingTrades | async)?.length">
     <span>Outgoing</span>
     <div class="trades-container">
         <div class="trade-container" *ngFor="let trade of $outgoingTrades | async">
@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="($incomingTrades | async).length">
+<div *ngIf="($incomingTrades | async)?.length">
     <span>Incoming</span>
     <div class="trades-container-wrapper">
         <div class="trades-container">
