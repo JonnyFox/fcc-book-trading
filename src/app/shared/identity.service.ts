@@ -12,7 +12,7 @@ export class IdentityService {
         return this._$identity as Observable<Identity>;
     }
 
-    public setIdentity(identity: Identity) {
+    public setIdentity(identity: Identity | null) {
         this._$identity.next(identity);
     }
 }

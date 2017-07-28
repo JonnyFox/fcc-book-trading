@@ -76,6 +76,17 @@ export class AppComponent implements OnDestroy, AfterViewInit {
             });
     }
 
+    public logout(): void {
+        gapi.auth2.getAuthInstance()
+            .signOut()
+            .then(() => {
+                this.zone.run(() => {
+                    this.identitySvc.setIdentity(null);
+                    window.location.reload();
+                });
+            });
+    }
+
     private setLoggedUser(loggedInUser: any) {
         this.zone.run(() => {
             const profile = loggedInUser.getBasicProfile();

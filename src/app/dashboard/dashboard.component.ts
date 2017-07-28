@@ -101,6 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     private initialize(): void {
         this.$filteredBooks = <FirebaseListObservable<SelectableBook[]>>this.db.list(`/${FirebaseLists[FirebaseLists.books]}`)
+            .filter(() => !!this.identity)
             .map(books => books.filter((book: Book) => book.ownerId !== this.identity.id));
         this._$selectedBooks.next([]);
         this.requestedBooks = [];

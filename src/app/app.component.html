@@ -18,7 +18,7 @@
     <div *ngIf="identity" class="pull-right identity-container">
         <img [src]="identity?.imageUrl" class="identity-image">
         <div>
-            <button md-button routerLink="/settings">{{identity?.name}}</button>
+            <button md-button (click)="logout()">{{identity?.name}}</button>
         </div>
     </div>
 </md-toolbar>
