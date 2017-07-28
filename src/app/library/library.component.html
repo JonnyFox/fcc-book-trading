@@ -1,4 +1,4 @@
-<div class="identity-container animated" [class.hide-me-height]="!($filterOwner | async)">
+<div class="identity-container animated">
     <img *ngIf="identity?.imageUrl" [src]="identity?.imageUrl" class="identity-image">
     <h3>{{identity?.name}}'s library</h3>
 </div>
